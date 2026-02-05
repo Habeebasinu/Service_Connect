@@ -1,0 +1,68 @@
+
+import express from "express";
+import http from "http";
+import cors from "cors";
+import dotenv from "dotenv";
+import { connectDb } from "./utils/db.js";
+import userRouter from "./router/UserRouter.js";
+import ProviderRouter from "./router/ProviderRouter.js";
+import AdminRouter from "./router/AdminRouter.js";
+import { initSocket } from "./config/Socket.js";
+
+dotenv.config();
+
+const app = express();
+
+app.use(express.json());
+
+app.use(
+  cors({
+    origin: "http://localhost:5174", 
+    credentials: true
+  })
+);
+
+app.use("/user", userRouter);
+app.use("/provider", ProviderRouter);
+app.use("/admin", AdminRouter);
+
+const server = http.createServer(app);
+initSocket(server);
+
+
+connectDb().then(() => {
+  server.listen(5000, () => {
+    console.log("Server running on http://localhost:5000");
+  });
+});
+
+
+
+
+
+
+// import express from'express'
+// import http from 'http'
+// import cors from 'cors'
+// import mongdb from 'mongodb'
+// import dotenv, { config } from 'dotenv'
+// import { connectDb } from './utils/db.js'
+// import userRouter from './router/UserRouter.js'
+// import ProviderRouter from './router/ProviderRouter.js'
+// import AdminRouter from './router/AdminRouter.js'
+// import { initSocket } from './config/Socket.js'
+// dotenv.config()
+
+// const app=express()
+// const server = http.createServer(app);
+// app.use(express.json())
+// app.use(cors())
+// app.use('/user',userRouter)
+// app.use('/provider',ProviderRouter)
+// app.use('/admin',AdminRouter)
+// initSocket(server);
+// connectDb().then(()=>{
+//     app.listen(5000,()=>{
+//            console.log("Server running on http://localhost:5000");
+//     })
+// })
