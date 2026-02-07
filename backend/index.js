@@ -1,4 +1,3 @@
-
 import express from "express";
 import http from "http";
 import cors from "cors";
@@ -15,13 +14,25 @@ const app = express();
 
 app.use(express.json());
 
-app.use(
-  cors({
-    origin: "http://localhost:5175", 
-    credentials: true
-  })
-);
-
+// app.use(
+//   cors({
+//     origin: "http://localhost:5179", 
+//     credentials: true
+//   })
+// );
+app.use(cors({
+  origin: function (origin, callback) {
+    // Allow requests with no origin (like mobile apps or curl)
+    if (!origin) return callback(null, true);
+    if (allowedOrigins.includes(origin)) {
+      return callback(null, true);
+    } else {
+      return callback(new Error("Not allowed by CORS"));
+    }
+  },
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  credentials: true,
+}));
 app.use("/user", userRouter);
 app.use("/provider", ProviderRouter);
 app.use("/admin", AdminRouter);

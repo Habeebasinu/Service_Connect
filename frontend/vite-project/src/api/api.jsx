@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { Await } from 'react-router-dom';
 
-const API_URL="http://localhost:5000"
+// const API_URL="http://localhost:5000"
 
 // export const GetAuthor = () => {
 //   const token = localStorage.getItem('token');
@@ -12,6 +12,10 @@ const API_URL="http://localhost:5000"
    
 //   };
 // }
+
+const API_URL="https://service-connect-1-ppdo.onrender.com"
+
+
 export const GetAuthor = () => {
   const token = localStorage.getItem("token");
 
