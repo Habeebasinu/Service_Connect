@@ -52,21 +52,15 @@ function ManageServices() {
             key={item._id}
             className="bg-white rounded-xl shadow-md overflow-hidden transform hover:scale-105 transition duration-300 hover:shadow-lg"
           >
-            {/* Service Name */}
-            <div className="px-4 py-3  from-purple-600 to-indigo-600">
+        <div className="px-4 py-3 bg-purple-600">
               <h3 className="text-white font-bold text-lg truncate">{item.service}</h3>
             </div>
 
-            {/* Image */}
             {item.img && (
               <img
                 src={item.img}
-                alt={item.service}
-                className="w-full h-36 object-cover border-b border-gray-200"
-              />
-            )}
+                alt={item.service}  className="w-full h-36 object-cover border-b border-gray-200"/>)}
 
-            {/* Service Details */}
             <div className="p-4 space-y-2 text-gray-700">
               <div className="flex items-center gap-2">
                 <UsersIcon className="w-5 h-5 text-purple-600" />

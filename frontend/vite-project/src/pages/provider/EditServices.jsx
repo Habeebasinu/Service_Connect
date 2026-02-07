@@ -16,6 +16,7 @@ function EditServices() {
     accountStatus: "",
     date: "",
     img: null,
+    previewImg:""
   });
 
   const [loading, setLoading] = useState(true);
@@ -34,7 +35,7 @@ function EditServices() {
           price: data.price || "",
           desc: data.desc || "",
           accountStatus:data.accountStatus || "",
-          date: data.date || "",
+        date: data.date ? data.date.split("T")[0] : "",
          img: null,             
          previewImg: data.img || "" 
         });
@@ -78,8 +79,13 @@ function EditServices() {
     }
 
     try {
+      for (let pair of formData.entries()) {
+  console.log(pair[0], pair[1]);
+}
+
       await serviceEdit(id, formData);
       alert("Service updated successfully");
+      navigate('/provider/service')
      
     } catch (error) {
       console.error("Update failed:", error);
@@ -117,8 +123,7 @@ function EditServices() {
             onChange={handleChange}
             placeholder="Company Name"
             className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-purple-500 outline-none"
-            required
-          />
+            required />
 
           <input
             type="date"
@@ -185,15 +190,12 @@ function EditServices() {
             className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-purple-500 outline-none"
           >
             <option value="">Select Status</option>
-            <option value="Active">Active</option>
-            <option value="Inactive">Inactive</option>
+            <option value="Available">Available</option>
+            <option value="Not Available">Not Available</option>
           </select>
+        
 
-          <motion.button
-            whileTap={{ scale: 0.95 }}
-            type="submit"
-            className="w-full bg-purple-600 hover:bg-purple-700 text-white py-3 rounded-lg font-semibold transition"
-          >
+          <motion.button whileTap={{ scale: 0.95 }}  type="submit"  className="w-full bg-purple-600 hover:bg-purple-700 text-white py-3 rounded-lg font-semibold transition">
             Update Service
           </motion.button>
         </form>

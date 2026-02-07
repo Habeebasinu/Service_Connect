@@ -115,14 +115,11 @@ function AddServices() {
             required
           >
             <option value="">Select Status</option>
-            <option>Active</option>
-            <option>Inactive</option>
+            <option>Available</option>
+            <option>Not Available</option>
           </select>
 
-          <button
-            type="submit"
-            className="mt-4 py-3 bg-purple-700 text-white font-bold rounded-xl hover:bg-purple-800 shadow-lg transition"
-          >
+          <button  type="submit"  className="mt-4 py-3 bg-purple-700 text-white font-bold rounded-xl hover:bg-purple-800 shadow-lg transition"  >
             Add Service
           </button>
         </form>

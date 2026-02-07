@@ -8,18 +8,24 @@ function Viewbookings() {
   const id = localStorage.getItem("id");
   const nav = useNavigate();
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const res = await Viewbook(id);
-        const sort=res.data.sort((a,b)=> new Date(b.createdAt) - new Date(a.createdAt))
-        setBookings(sort);
-      } catch (error) {
-        console.log("Booking not found", error);
-      }
-    };
-    fetchData();
-  }, [id]);
+ useEffect(() => {
+  const fetchData = async () => {
+    try {
+      const res = await Viewbook(id);
+
+      const sortedBookings = [...res.data].sort(
+        (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+      );
+
+      setBookings(sortedBookings);
+    } catch (error) {
+      console.log("Booking not found", error);
+    }
+  };
+
+  fetchData();
+}, [id]);
+
 
   const deleteBooking = async (bookingId) => {
     try {

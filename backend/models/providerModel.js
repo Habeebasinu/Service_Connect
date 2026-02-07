@@ -29,8 +29,8 @@ const ProviderSchema = new mongoose.Schema({
 
   accountStatus: {
   type: String,
-  enum: ["Active", "Inactive"],
-  default: "Active"
+  enum: ["Available", "Not Available"],
+  default: "Available"
 },
 date:{
    type: String,

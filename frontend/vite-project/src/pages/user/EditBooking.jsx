@@ -49,7 +49,7 @@ function EditBooking() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     await Editbooking(id, booking);
-    navigate("/user/bookings");
+    navigate("/user/viewbook");
   };
 
  if (loading) {

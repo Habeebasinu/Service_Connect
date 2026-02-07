@@ -24,6 +24,17 @@ function ServiceDetails() {
     fetchService();
   }, [id]);
 
+const click = () => {
+  if (service?.accountStatus === "Available") {
+    nav(`/books/${id}`);
+  } else {
+    alert("Service is not available right now");
+     nav(-1);
+  }
+};
+
+
+
   if (loading) {
     return <p className="text-center mt-10">Loading service details...</p>;
   }
@@ -72,18 +83,21 @@ return (
             <p className="text-sm text-gray-500">Status</p>
             <p className="text-lg font-bold text-blue-700 capitalize">
               {service.status}
+              {service.accountStatus}
             </p>
           </div>
         </div>
 
      
         <div className="mt-10 flex justify-center">
-          <button
-            onClick={() => nav(`/books/${id}`)}
-            className="px-10 py-3  from-purple-600 to-pink-600 text-white rounded-full font-semibold text-lg shadow-lg hover:scale-105 hover:shadow-xl transition"
-          >
-            Book Service
-          </button>
+         <button
+ onClick={() => click(id)}
+
+  className="px-10 py-3  from-purple-600 to-pink-600 text-white rounded-full font-semibold text-lg shadow-lg hover:scale-105 hover:shadow-xl transition"
+>
+  Book Service
+</button>
+
         </div>
       </div>
     </div>

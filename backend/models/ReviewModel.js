@@ -13,12 +13,11 @@ const ReviewSchema = new mongoose.Schema(
       ref: "User",
       required: true,
     },
-    name:{
-        type:String,
-        
 
-    }
-    ,
+    name: {
+      type: String,
+      default: "Anonymous",
+    },
 
     rating: {
       type: Number,
@@ -36,6 +35,5 @@ const ReviewSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-
-const Review= mongoose.model("Review", ReviewSchema);
-export default Review
+const Review = mongoose.model("Review", ReviewSchema);
+export default Review;

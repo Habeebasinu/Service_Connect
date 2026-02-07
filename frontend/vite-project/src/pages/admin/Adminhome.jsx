@@ -43,12 +43,10 @@ function Adminhome() {
   return (
     <div className="p-8 min-h-screen bg-white text-black">
 
-      {/* Page Title */}
       <h2 className="text-3xl font-bold text-purple-700 mb-10">
         Admin Dashboard Overview
       </h2>
 
-      {/* ================= STATS CARDS ================= */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-14">
 
         {[
@@ -75,7 +73,6 @@ function Adminhome() {
         ))}
       </div>
 
-      {/* ================= ACTION SECTION ================= */}
       <h2 className="text-2xl font-bold text-purple-700 mb-8">
         Quick Management Actions
       </h2>

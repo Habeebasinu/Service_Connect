@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { Bookservices } from "../../api/api.jsx";
 import socket from "../../Socket";
 
@@ -8,6 +8,7 @@ function BookService() {
   const userId = localStorage.getItem("id");
 
   const [status, setStatus] = useState("pending");
+  const nav=useNavigate()
 
   const [inp, setInp] = useState({
     name: "",
@@ -33,7 +34,7 @@ function BookService() {
 
     socket.on("bookingCompleted", () => {
       setStatus("done");
-      alert("Service completed 🎉");
+      alert("Service completed");
     });
 
     return () => {
@@ -75,7 +76,6 @@ return (
   <div className="min-h-screen  from-purple-50 via-white to-pink-50 flex items-center justify-center px-4 py-10">
     <div className="w-full max-w-5xl grid grid-cols-1 md:grid-cols-2 gap-8">
 
-      {/* Service Info */}
       <div className="bg-white rounded-2xl shadow-lg p-8 border border-purple-100">
         <h3 className="text-xl font-bold text-purple-700 mb-6">
           Service Overview
@@ -158,9 +158,7 @@ return (
 
          <button
   type="submit"
-  className="w-full mt-4 bg-purple-600 text-white py-3 rounded-lg font-semibold text-lg shadow-md hover:bg-purple-700 transition"
->
-  Confirm Booking
+  className="w-full mt-4 bg-purple-600 text-white py-3 rounded-lg font-semibold text-lg shadow-md hover:bg-purple-700 transition" onClick={()=>nav('/user/viewbook')}>Confirm Booking
 </button>
 
         </form>

@@ -253,61 +253,57 @@ export const getBookingById = async (req, res) => {
 };
 
 
+
 export const ServiceReview = async (req, res) => {
-  const { review, rating } = req.body;
-  const userId = req.user.id;
-  const service_id = req.params.id;
-
   try {
-  
-    const customer = await Customer.findOne({
-      userId,
-      service_id
-    });
+    const { review, rating } = req.body;
+    const userId = req.user.id;
+    const service_id = req.params.id;
 
+    // Validate input
+    if (!review || !rating) {
+      return res.status(400).json({ message: "Review & rating required" });
+    }
+
+    // Check booking
+    const customer = await Customer.findOne({ userId, service_id });
     if (!customer) {
       return res.status(403).json({
-        message: "You have not booked this service"
+        message: "You have not booked this service",
       });
     }
 
-  
-    const alreadyReviewed = await Review.findOne({
-      userId,
-      service_id
-    });
-
+    // Check duplicate review
+    const alreadyReviewed = await Review.findOne({ userId, service_id });
     if (alreadyReviewed) {
       return res.status(400).json({
-        message: "You already reviewed this service"
+        message: "You already reviewed this service",
       });
     }
 
-  
+    // Create review
     const newReview = new Review({
       review,
       rating,
       userId,
       service_id,
-    name: customer.name || "Anonymous"
-
+      name: customer.name || "Anonymous",
     });
 
     await newReview.save();
 
     return res.status(201).json({
       message: "Review submitted successfully",
-      data: newReview
+      data: newReview,
     });
-
   } catch (error) {
-    console.error(error);
+    console.error("Service review error:", error);
     return res.status(500).json({
-      message: "Review failed",
-      error
+      message: "Internal server error",
     });
   }
 };
+
 export  const allservicebooking=async(req,res)=>{
   try{
     const books=await Customer.find()

@@ -41,11 +41,12 @@ function UserHome() {
   whileHover={{ y: -8 }}
   className="bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition"
 >  <div className="relative">
-    <img
-      src={service.img}
-      alt={service.service}
-      className="w-full h-48 object-cover"
-    />
+   <img
+  src={service.img}
+  alt={service.service}
+  className="w-full h-48 object-contain bg-gray-100"
+/>
+
 
     <span className="absolute bottom-2 right-2 bg-white/90 text-purple-700 text-xs px-3 py-1 rounded-full font-semibold">
       ⭐ {service.rating || "N/A"}
@@ -54,6 +55,7 @@ function UserHome() {
 
   <div className="p-4">
     <h3 className="text-lg font-bold text-gray-800 truncate">
+      <p>{service.accountStatus}</p>
       {service.service}
     </h3>
 
