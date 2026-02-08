@@ -19,7 +19,7 @@ const API_URL="https://service-connect-1-ppdo.onrender.com"
 export const GetAuthor = () => {
   const token = localStorage.getItem("token");
 
-  if (!token) return {}; // 👈 DO NOT send empty Authorization
+  if (!token) return {}; 
 
   return {
     Authorization: `Bearer ${token}`,
@@ -119,7 +119,7 @@ export const Signin =async(inp)=>{
 
 export const viewServiceById = (id) => {
   try{
-      return axios.get(`http://localhost:5000/user/viewservice/${id}`,{
+      return axios.get(`${API_URL}/user/viewservice/${id}`,{
           headers:GetAuthor()
         });
 }catch (error) {
