@@ -70,6 +70,7 @@ function ProviderRegister() {
 
       setErrors({});
       alert("Provider registered successfully");
+      nav('/log')
     } catch (err) {
       console.error(err);
     }
