@@ -11,33 +11,23 @@ function ProviderHeader() {
   };
 
   return (
-    <header className="w-full min-h-24 bg-white border-b border-gray-200 shadow-md flex items-center justify-between px-6 md:px-10 py-4">
+    <header className="w-full bg-white border-b border-gray-200 shadow-md flex flex-col sm:flex-row items-center justify-between px-4 sm:px-6 md:px-10 py-3 sm:py-4 gap-3 sm:gap-0">
       
-      {/* Logo / Brand */}
-      <h1 className="text-xl md:text-2xl font-extrabold text-purple-600">
+      <h1 className="text-lg sm:text-xl md:text-2xl font-extrabold text-purple-600 text-center sm:text-left">
         ServiceConnect
       </h1>
 
-      {/* Page Title */}
-      <h2 className="text-lg md:text-xl font-semibold text-gray-700">
+      <h2 className="text-base sm:text-lg md:text-xl font-semibold text-gray-700 text-center">
         Dashboard
       </h2>
 
-      {/* Actions */}
-      <div className="flex items-center gap-4">
-        <button
-          onClick={logout}
-          className="px-4 py-2 rounded-lg text-sm font-semibold text-white bg-red-500 hover:bg-red-600 shadow-md transition"
-        >
+      <div className="flex items-center gap-3 sm:gap-4">
+        <button onClick={logout} className="px-3 sm:px-4 py-2 rounded-lg text-xs sm:text-sm font-semibold text-white bg-red-500 hover:bg-red-600 shadow-md transition">
           Logout
         </button>
 
-        <button
-          onClick={() => navigate("/provider/profiles")}
-          aria-label="Provider Profile"
-          className="focus:outline-none"
-        >
-          <FaUserCircle className="text-2xl md:text-3xl text-purple-600 hover:text-purple-500 transition" />
+        <button onClick={() => navigate("/provider/profiles")} aria-label="Provider Profile" className="focus:outline-none">
+          <FaUserCircle className="text-2xl sm:text-3xl text-purple-600 hover:text-purple-500 transition" />
         </button>
       </div>
 

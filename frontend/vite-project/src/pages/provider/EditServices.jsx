@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { ViewServiceById,serviceEdit } from "../../api/api.jsx";
+import { ViewServiceById, serviceEdit } from "../../api/api.jsx";
 import { motion } from "framer-motion";
 
 function EditServices() {
@@ -16,7 +16,7 @@ function EditServices() {
     accountStatus: "",
     date: "",
     img: null,
-    previewImg:""
+    previewImg: ""
   });
 
   const [loading, setLoading] = useState(true);
@@ -26,7 +26,6 @@ function EditServices() {
       try {
         const res = await ViewServiceById(id);
         const data = res.data;
-        console.log(data)
 
         setService({
           companyname: data.companyname || "",
@@ -34,10 +33,10 @@ function EditServices() {
           employee: data.employee || "",
           price: data.price || "",
           desc: data.desc || "",
-          accountStatus:data.accountStatus || "",
-        date: data.date ? data.date.split("T")[0] : "",
-         img: null,             
-         previewImg: data.img || "" 
+          accountStatus: data.accountStatus || "",
+          date: data.date ? data.date.split("T")[0] : "",
+          img: null,
+          previewImg: data.img || ""
         });
 
         setLoading(false);
@@ -50,7 +49,6 @@ function EditServices() {
     fetchService();
   }, [id]);
 
-
   const handleChange = (e) => {
     const { name, value, files } = e.target;
 
@@ -60,7 +58,6 @@ function EditServices() {
       setService({ ...service, [name]: value });
     }
   };
-
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -79,20 +76,14 @@ function EditServices() {
     }
 
     try {
-      for (let pair of formData.entries()) {
-  console.log(pair[0], pair[1]);
-}
-
       await serviceEdit(id, formData);
       alert("Service updated successfully");
-      navigate('/provider/service')
-     
+      navigate("/provider/service");
     } catch (error) {
       console.error("Update failed:", error);
       alert("Failed to update service");
     }
   };
-
 
   if (loading) {
     return (
@@ -103,14 +94,16 @@ function EditServices() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-100 flex items-center justify-center px-4">
+    <div className="min-h-screen bg-gray-100 flex items-center justify-center px-4 py-8 sm:px-6">
+      
       <motion.div
         initial={{ opacity: 0, y: 40 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.4 }}
-        className="bg-white w-full max-w-2xl rounded-2xl shadow-xl p-8 border border-purple-200"
+        className="bg-white w-full max-w-2xl rounded-2xl shadow-xl border border-purple-200 p-5 sm:p-8"
       >
-        <h2 className="text-2xl font-bold text-purple-700 text-center mb-6">
+        
+        <h2 className="text-xl sm:text-2xl font-bold text-purple-700 text-center mb-6">
           Edit Service
         </h2>
 
@@ -122,15 +115,16 @@ function EditServices() {
             value={service.companyname}
             onChange={handleChange}
             placeholder="Company Name"
-            className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-purple-500 outline-none"
-            required />
+            className="w-full border border-gray-300 rounded-lg px-4 py-2 sm:py-3 focus:ring-2 focus:ring-purple-500 outline-none"
+            required
+          />
 
           <input
             type="date"
             name="date"
             value={service.date}
             onChange={handleChange}
-            className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-purple-500 outline-none"
+            className="w-full border border-gray-300 rounded-lg px-4 py-2 sm:py-3 focus:ring-2 focus:ring-purple-500 outline-none"
             required
           />
 
@@ -140,18 +134,18 @@ function EditServices() {
             value={service.service}
             onChange={handleChange}
             placeholder="Service Name"
-            className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-purple-500 outline-none"
+            className="w-full border border-gray-300 rounded-lg px-4 py-2 sm:py-3 focus:ring-2 focus:ring-purple-500 outline-none"
             required
           />
 
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <input
               type="number"
               name="employee"
               value={service.employee}
               onChange={handleChange}
               placeholder="Employees"
-              className="border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-purple-500 outline-none"
+              className="w-full border border-gray-300 rounded-lg px-4 py-2 sm:py-3 focus:ring-2 focus:ring-purple-500 outline-none"
               required
             />
 
@@ -161,7 +155,7 @@ function EditServices() {
               value={service.price}
               onChange={handleChange}
               placeholder="Price / Hour"
-              className="border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-purple-500 outline-none"
+              className="w-full border border-gray-300 rounded-lg px-4 py-2 sm:py-3 focus:ring-2 focus:ring-purple-500 outline-none"
               required
             />
           </div>
@@ -172,7 +166,7 @@ function EditServices() {
             value={service.desc}
             onChange={handleChange}
             placeholder="Service Description"
-            className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-purple-500 outline-none resize-none"
+            className="w-full border border-gray-300 rounded-lg px-4 py-2 sm:py-3 focus:ring-2 focus:ring-purple-500 outline-none resize-none"
             required
           />
 
@@ -187,17 +181,21 @@ function EditServices() {
             name="accountStatus"
             value={service.accountStatus}
             onChange={handleChange}
-            className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-purple-500 outline-none"
+            className="w-full border border-gray-300 rounded-lg px-4 py-2 sm:py-3 focus:ring-2 focus:ring-purple-500 outline-none"
           >
             <option value="">Select Status</option>
             <option value="Available">Available</option>
             <option value="Not Available">Not Available</option>
           </select>
-        
 
-          <motion.button whileTap={{ scale: 0.95 }}  type="submit"  className="w-full bg-purple-600 hover:bg-purple-700 text-white py-3 rounded-lg font-semibold transition">
+          <motion.button
+            whileTap={{ scale: 0.95 }}
+            type="submit"
+            className="w-full bg-purple-600 hover:bg-purple-700 text-white py-3 rounded-lg font-semibold transition"
+          >
             Update Service
           </motion.button>
+
         </form>
       </motion.div>
     </div>

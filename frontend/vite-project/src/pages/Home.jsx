@@ -8,30 +8,37 @@ const Home = () => {
   return (
     <>
       <section className="relative min-h-screen overflow-hidden">
+
         <motion.div
           initial={{ scale: 1.1 }}
           animate={{ scale: 1 }}
           transition={{ duration: 10, ease: "easeOut" }}
           className="absolute inset-0 bg-cover bg-center"
-          style={{ backgroundImage: "url(https://images.unsplash.com/photo-1600880292089-90a7e086ee0c)" }}
+          style={{
+            backgroundImage:
+              "url(https://images.unsplash.com/photo-1600880292089-90a7e086ee0c)",
+          }}
         />
 
-        <div className="relative z-10 min-h-screen flex items-center justify-center px-6">
+        <div className="absolute inset-0 bg-black/40" />
+
+        <div className="relative z-10 min-h-screen flex items-center justify-center px-4 sm:px-6">
+
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="w-full max-w-md bg-white p-6 rounded-2xl shadow-2xl border border-purple-300"
+            className="w-full max-w-md sm:max-w-lg bg-white p-5 sm:p-8 rounded-2xl shadow-2xl border border-purple-300"
           >
-            <h1 className="text-xl md:text-2xl font-bold text-gray-900 text-center mb-2">
+            <h1 className="text-lg sm:text-xl md:text-2xl font-bold text-gray-900 text-center mb-2">
               Reliable <span className="text-purple-600">Services</span> Near You
             </h1>
 
-            <p className="text-gray-600 text-sm text-center mb-4">
+            <p className="text-gray-600 text-xs sm:text-sm text-center mb-4">
               Find trusted professionals in your area
             </p>
 
-            <div className="flex gap-2">
+            <div className="flex flex-col sm:flex-row gap-2">
               <input
                 type="text"
                 placeholder="Enter your location"
@@ -42,10 +49,11 @@ const Home = () => {
               </button>
             </div>
 
-            <p className="text-xs text-gray-500 text-center mt-3">
+            <p className="text-[11px] sm:text-xs text-gray-500 text-center mt-3">
               ✔ Verified providers • ✔ Fast booking
             </p>
           </motion.div>
+
         </div>
       </section>
 

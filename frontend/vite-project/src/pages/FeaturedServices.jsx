@@ -27,18 +27,18 @@ function FeaturedServices() {
   ];
 
   return (
-    <section className="py-24 bg-white">
+    <section className="py-16 sm:py-20 bg-white">
       <motion.h2
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.6 }}
-        className="text-3xl font-bold text-center text-gray-900 mb-14"
+        className="text-2xl sm:text-3xl font-bold text-center text-gray-900 mb-10 sm:mb-14 px-4"
       >
         Our <span className="text-purple-600">Featured Services</span>
       </motion.h2>
 
-      <div className="max-w-6xl mx-auto grid md:grid-cols-3 gap-8 px-6">
+      <div className="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 px-4 sm:px-6">
         {featuredServices.map((service, index) => (
           <motion.div
             key={index}
@@ -46,34 +46,34 @@ function FeaturedServices() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: index * 0.15 }}
-            whileHover={{ y: -10, scale: 1.02 }}
+            whileHover={{ y: -8 }}
             className="bg-white rounded-2xl overflow-hidden border border-purple-200 shadow-md hover:shadow-purple-300/40 transition"
           >
             <div className="relative">
               <img
                 src={service.image}
                 alt={service.title}
-                className="h-52 w-full object-cover"
+                className="h-48 sm:h-52 w-full object-cover"
               />
               <span className="absolute top-3 right-3 bg-purple-600 text-white text-xs px-3 py-1 rounded-full">
                 ⭐ {service.rating}
               </span>
             </div>
 
-            <div className="p-6">
-              <h3 className="text-lg font-semibold text-gray-900 mb-1">
+            <div className="p-5 sm:p-6">
+              <h3 className="text-base sm:text-lg font-semibold text-gray-900 mb-1">
                 {service.title}
               </h3>
 
-              <p className="text-sm text-gray-600 mb-4">
+              <p className="text-xs sm:text-sm text-gray-600 mb-4">
                 {service.provider}
               </p>
 
               <div className="flex items-center justify-between">
-                <span className="text-purple-600 font-bold">
+                <span className="text-purple-600 font-bold text-sm sm:text-base">
                   {service.price}
                 </span>
-                <button className="bg-purple-600 text-white px-4 py-2 rounded-lg text-sm hover:bg-purple-700 transition">
+                <button className="bg-purple-600 text-white px-3 sm:px-4 py-2 rounded-lg text-xs sm:text-sm hover:bg-purple-700 transition">
                   Book Now
                 </button>
               </div>

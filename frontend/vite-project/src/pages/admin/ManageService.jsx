@@ -33,28 +33,29 @@ function ManageService() {
   };
 
   return (
-    <div className="p-8 min-h-screen bg-gray-50 text-gray-800">
-      <h1 className="text-3xl font-extrabold text-purple-700 mb-2">
+    <div className="p-3 sm:p-6 lg:p-8 min-h-screen bg-gray-50 w-full">
+
+      <h1 className="text-xl sm:text-2xl lg:text-3xl font-extrabold text-purple-700 mb-2">
         Provider Approval Requests
       </h1>
-      <p className="text-gray-600 mb-6">
+
+      <p className="text-gray-600 text-sm sm:text-base mb-6">
         Review and manage pending service provider registrations.
       </p>
 
-      <div className="bg-white rounded-xl shadow-md p-6 border border-purple-200">
-        <h2 className="text-xl font-semibold mb-4 text-purple-700">
-          Pending Providers
-        </h2>
+      <div className="bg-white rounded-xl shadow-sm border border-purple-200">
 
         <div className="overflow-x-auto">
-          <table className="w-full border-collapse text-sm">
-            <thead>
-              <tr className="text-left text-gray-600 border-b">
-                <th className="pb-3">Provider Name</th>
-                <th className="pb-3">Company Name</th>
-                <th className="pb-3">Description</th>
-                <th className="pb-3">Status</th>
-                <th className="pb-3">Actions</th>
+
+          <table className=" w-full text-sm">
+
+            <thead className="bg-gray-50 border-b">
+              <tr className="text-left text-gray-600">
+                <th className="p-3">Provider Name</th>
+                <th className="p-3">Company Name</th>
+                <th className="p-3">Description</th>
+                <th className="p-3">Status</th>
+                <th className="p-3">Actions</th>
               </tr>
             </thead>
 
@@ -62,23 +63,26 @@ function ManageService() {
               {providers.map((provider) => (
                 <tr
                   key={provider._id}
-                  className="border-b last:border-none hover:bg-purple-50 transition"
+                  className="border-b hover:bg-purple-50 transition"
                 >
-                  <td className="py-4 flex items-center gap-3">
+                  <td className="p-3 flex items-center gap-3">
                     <img
                       src={provider.img}
                       alt="avatar"
-                      className="w-9 h-9 rounded-full object-cover border"
+                      className="w-8 h-8 rounded-full object-cover border"
                     />
                     <span className="font-medium">
                       {provider.service}
                     </span>
                   </td>
 
-                  <td>{provider.companyname}</td>
-                  <td className="max-w-xs truncate">{provider.desc}</td>
+                  <td className="p-3">{provider.companyname}</td>
 
-                  <td>
+                  <td className="p-3 max-w-xs truncate">
+                    {provider.desc}
+                  </td>
+
+                  <td className="p-3">
                     <span
                       className={`px-3 py-1 text-xs rounded-full font-semibold ${
                         provider.approvalStatus === "accept"
@@ -90,22 +94,25 @@ function ManageService() {
                     </span>
                   </td>
 
-                  <td className="flex gap-2 py-4">
-                    {provider.approvalStatus !== "accept" && (
-                      <button
-                        onClick={() => handleApprove(provider._id)}
-                        className="px-4 py-1.5 text-sm rounded-lg bg-purple-600 text-white hover:bg-purple-700 transition"
-                      >
-                        Approve
+                  <td className="p-3">
+                    <div className="flex flex-col sm:flex-row gap-2">
+                      {provider.approvalStatus !== "accept" && (
+                        <button
+                          onClick={() => handleApprove(provider._id)}
+                          className="px-3 py-1.5 text-xs sm:text-sm rounded-lg bg-purple-600 text-white hover:bg-purple-700 transition"
+                        >
+                          Approve
+                        </button>
+                      )}
+                      <button className="px-3 py-1.5 text-xs sm:text-sm rounded-lg border border-gray-400 text-gray-700 hover:bg-gray-100 transition">
+                        Reject
                       </button>
-                    )}
-                    <button className="px-4 py-1.5 text-sm rounded-lg border border-gray-400 text-gray-700 hover:bg-gray-100 transition">
-                      Reject
-                    </button>
+                    </div>
                   </td>
                 </tr>
               ))}
             </tbody>
+
           </table>
 
           {providers.length === 0 && (
@@ -113,8 +120,10 @@ function ManageService() {
               No pending providers
             </p>
           )}
+
         </div>
       </div>
+
     </div>
   );
 }

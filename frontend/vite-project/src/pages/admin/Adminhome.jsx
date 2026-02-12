@@ -41,13 +41,13 @@ function Adminhome() {
   }, []);
 
   return (
-    <div className="p-8 min-h-screen bg-white text-black">
+    <div className="p-3 sm:p-6 lg:p-8 min-h-screen bg-gray-50 w-full">
 
-      <h2 className="text-3xl font-bold text-purple-700 mb-10">
+      <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold text-purple-700 mb-6 sm:mb-10">
         Admin Dashboard Overview
       </h2>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-14">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mb-10 sm:mb-14">
 
         {[
           { icon: Users, value: users.length, label: "Total Users" },
@@ -57,27 +57,24 @@ function Adminhome() {
         ].map(({ icon: Icon, value, label }, i) => (
           <div
             key={i}
-            className="bg-white rounded-xl p-6
-                       border border-purple-300
-                       shadow-md hover:shadow-lg
-                       transition-all duration-300"
+            className="bg-white rounded-xl p-4 sm:p-6 border border-purple-200 shadow-sm hover:shadow-md transition duration-300"
           >
-            <Icon className="text-purple-700 mb-4" size={32} />
-            <h3 className="text-3xl font-extrabold text-black">
+            <Icon className="text-purple-700 mb-3" size={28} />
+            <h3 className="text-2xl sm:text-3xl font-extrabold text-gray-800">
               {value}
             </h3>
-            <p className="text-sm text-gray-700 mt-1">
+            <p className="text-xs sm:text-sm text-gray-600 mt-1">
               {label}
             </p>
           </div>
         ))}
       </div>
 
-      <h2 className="text-2xl font-bold text-purple-700 mb-8">
+      <h2 className="text-lg sm:text-2xl font-bold text-purple-700 mb-6 sm:mb-8">
         Quick Management Actions
       </h2>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">
 
         {[
           {
@@ -98,21 +95,19 @@ function Adminhome() {
         ].map(({ icon: Icon, title, desc }, i) => (
           <div
             key={i}
-            className="bg-white rounded-xl p-6
-                       border border-purple-300
-                       shadow-md hover:shadow-lg
-                       transition-all duration-300 cursor-pointer"
+            className="bg-white rounded-xl p-4 sm:p-6 border border-purple-200 shadow-sm hover:shadow-md transition duration-300 cursor-pointer"
           >
-            <Icon className="text-purple-700 mb-4" size={30} />
-            <h3 className="font-semibold text-lg text-black mb-2">
+            <Icon className="text-purple-700 mb-3" size={26} />
+            <h3 className="font-semibold text-base sm:text-lg text-gray-800 mb-2">
               {title}
             </h3>
-            <p className="text-sm text-gray-700">
+            <p className="text-xs sm:text-sm text-gray-600">
               {desc}
             </p>
           </div>
         ))}
       </div>
+
     </div>
   );
 }
