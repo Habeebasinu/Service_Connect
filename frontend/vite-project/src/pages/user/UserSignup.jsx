@@ -69,7 +69,7 @@ function UserSignup() {
         password: ""
       });
       setErrors({});
-      nav("/login"); 
+      nav("/log"); 
     } catch (err) {
       console.error(err);
       alert("Failed to register user. Please try again.");
