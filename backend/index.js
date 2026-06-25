@@ -35,28 +35,40 @@ const server = http.createServer(app);
 
 // app.options("*", cors());
 
-const allowedOrigins = [
-  "http://localhost:5173",
-  "http://localhost:5179",
-  "https://service-connect-2-gn13.onrender.com"
-];
 
 app.use(
   cors({
-    origin: function (origin, callback) {
-      // allow requests with no origin (Postman, curl)
-      if (!origin) return callback(null, true);
-
-      if (allowedOrigins.includes(origin)) {
-        callback(null, true);
-      } else {
-        callback(new Error("Not allowed by CORS"));
-      }
-    },
+    origin: [
+      "http://localhost:5173",
+      "https://service-connect-2-gn13.onrender.com"
+    ],
     credentials: true,
     methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"]
   })
 );
+// const allowedOrigins = [
+//   "http://localhost:5173",
+//   "http://localhost:5179",
+//   "https://service-connect-2-gn13.onrender.com"
+// ];
+
+// app.use(
+//   cors({
+//     origin: function (origin, callback) {
+//       // allow requests with no origin (Postman, curl)
+//       if (!origin) return callback(null, true);
+
+//       if (allowedOrigins.includes(origin)) {
+//         callback(null, true);
+//       } else {
+//         callback(new Error("Not allowed by CORS"));
+//       }
+//     },
+//     credentials: true,
+//     methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+//   })
+// );
 
 // handle preflight
 // app.options("*", cors());
