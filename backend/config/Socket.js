@@ -3,7 +3,7 @@ import { Server } from "socket.io";
 let io;
 
 const allowedOrigins = [
-  "http://localhost:5175",
+  "http://localhost:5173",
   "http://localhost:5179",
   "https://service-connect-2-gn13.onrender.com"
 ];

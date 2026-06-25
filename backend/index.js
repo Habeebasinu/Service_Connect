@@ -7,6 +7,7 @@ import { connectDb } from "./utils/db.js";
 import userRouter from "./router/UserRouter.js";
 import ProviderRouter from "./router/ProviderRouter.js";
 import AdminRouter from "./router/AdminRouter.js";
+import PaymentRouter from './router/PaymentRouter.js'
 import { initSocket } from "./config/Socket.js";
 
 dotenv.config();
@@ -35,7 +36,7 @@ const server = http.createServer(app);
 // app.options("*", cors());
 
 const allowedOrigins = [
-  "http://localhost:5175",
+  "http://localhost:5173",
   "http://localhost:5179",
   "https://service-connect-2-gn13.onrender.com"
 ];
@@ -78,11 +79,14 @@ app.use(express.json());
 app.use("/user", userRouter);
 app.use("/provider", ProviderRouter);
 app.use("/admin", AdminRouter);
+app.use('/payment',PaymentRouter)
 
 /* =========================
    SOCKET INIT
 ========================= */
-
+app.get("/", (req, res) => {
+  res.send("Service Connect API Running");
+});
 initSocket(server);
 
 /* =========================
@@ -91,12 +95,21 @@ initSocket(server);
 
 const PORT = process.env.PORT || 5000;
 
-connectDb().then(() => {
-  server.listen(PORT, () => {
-    console.log(`✅ Server running on port ${PORT}`);
+// connectDb().then(() => {
+//   server.listen(PORT, () => {
+//     console.log(`✅ Server running on port ${PORT}`);
+//   });
+// });
+connectDb()
+  .then(() => {
+    console.log("MongoDB Connected");
+    server.listen(PORT, () => {
+      console.log(`Server running on ${PORT}`);
+    });
+  })
+  .catch((err) => {
+    console.log("MongoDB Error:", err);
   });
-});
-
 
 
 

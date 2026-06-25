@@ -6,10 +6,11 @@ import socket from "../../Socket";
 function BookService() {
   const { id: serviceId } = useParams();
   const userId = localStorage.getItem("id");
+  const nav = useNavigate();
 
   const [status, setStatus] = useState("pending");
   const [service, setService] = useState(null);
-  const nav = useNavigate();
+  const [loading, setLoading] = useState(false);
 
   const [inp, setInp] = useState({
     name: "",
@@ -26,7 +27,6 @@ function BookService() {
         setService(res.data);
       } catch (err) {
         console.error(err);
-        alert("Failed to load service details");
       }
     };
     fetchService();
@@ -43,12 +43,10 @@ function BookService() {
 
     socket.on("bookingConfirmed", () => {
       setStatus("confirmed");
-      alert("Booking confirmed by provider ✅");
     });
 
     socket.on("bookingCompleted", () => {
       setStatus("done");
-      alert("Service completed");
     });
 
     return () => {
@@ -61,35 +59,68 @@ function BookService() {
     setInp({ ...inp, [e.target.name]: e.target.value });
   };
 
-  const submit = async (e) => {
-    e.preventDefault();
+  // 💳 Razorpay Payment Function
+  const handlePayment = async () => {
+    if (!service) return;
+
+    setLoading(true);
+
     try {
-      await Bookservices(serviceId, inp);
+      const totalAmount = service.price * inp.hrs;
 
-      setStatus("pending");
-      setInp({
-        name: "",
-        date: "",
-        time: "",
-        num: "",
-        hrs: ""
-      });
+      const res = await fetch(
+        "http://localhost:5000/api/payment/create-order",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ amount: totalAmount }),
+        }
+      );
 
-      alert("Booking placed successfully ⏳");
-      nav("/user/viewbook");
+      const order = await res.json();
+
+      const options = {
+        key: "YOUR_KEY_ID",
+        amount: order.amount,
+        currency: "INR",
+        order_id: order.id,
+        name: "Service Connect",
+        description: "Service Booking Payment",
+
+        handler: async function (response) {
+          await Bookservices(serviceId, inp);
+          alert("Payment Successful ✅");
+          nav("/user/viewbook");
+        },
+
+        theme: {
+          color: "#7C3AED",
+        },
+      };
+
+      const rzp = new window.Razorpay(options);
+      rzp.open();
+
     } catch (error) {
       console.error(error);
-      alert("Booking failed ");
+      alert("Payment failed");
     }
+
+    setLoading(false);
   };
 
-  return (
-    <div className="min-h-screen from-purple-50 via-white to-pink-50 px-4 sm:px-6 py-10">
-      <div className="w-full max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
+  const totalPrice = service && inp.hrs
+    ? service.price * inp.hrs
+    : 0;
 
-        <div className="bg-white rounded-2xl shadow-lg border border-purple-100 overflow-hidden">
+  return (
+    <div className="min-h-screen px-4 sm:px-6 py-10 bg-gray-50">
+      <div className="w-full max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
+
+        {/* Service Card */}
+        <div className="bg-white rounded-2xl shadow-lg border overflow-hidden">
           {service?.img && (
-            <div className="w-full h-64 sm:h-72">
+            <div className="w-full h-72">
               <img
                 src={service.img}
                 alt={service.service}
@@ -98,66 +129,55 @@ function BookService() {
             </div>
           )}
 
-          <div className="p-5 sm:p-8 space-y-3">
-            <h3 className="text-lg sm:text-xl font-bold text-purple-700 mb-4">
+          <div className="p-8 space-y-4">
+            <h3 className="text-xl font-bold text-purple-700">
               Service Overview
             </h3>
 
-            {service ? (
+            {service && (
               <>
-                <p className="text-3xl font-bold text-black mb-2">{service.service}</p>
+                <p className="text-3xl font-bold">{service.service}</p>
                 <p>
                   <span className="font-semibold">Price / Hour:</span> ₹{service.price}
                 </p>
                 <p>
                   <span className="font-semibold">Available Staff:</span> {service.employee}
                 </p>
-               
               </>
-            ) : (
-              <p className="text-gray-500">Loading service details...</p>
             )}
 
-            <div className="mt-6">
-              <span
-                className={`inline-block px-4 sm:px-5 py-2 rounded-full text-xs sm:text-sm font-semibold tracking-wide
-                  ${
-                    status === "pending"
-                      ? "bg-yellow-100 text-yellow-700"
-                      : status === "confirmed"
-                      ? "bg-blue-100 text-blue-700"
-                      : "bg-green-100 text-green-700"
-                  }`}
-              >
+            <div>
+              <span className="inline-block px-5 py-2 rounded-full text-sm font-semibold bg-yellow-100 text-yellow-700">
                 {status.toUpperCase()}
               </span>
             </div>
           </div>
         </div>
 
-        <div className="bg-white rounded-2xl shadow-lg p-5 sm:p-8 border border-purple-100">
-          <h2 className="text-xl sm:text-2xl font-bold text-purple-700 mb-6 sm:mb-8 text-center">
+        {/* Booking Form */}
+        <div className="bg-white rounded-2xl shadow-lg p-8 border">
+          <h2 className="text-2xl font-bold text-purple-700 mb-8 text-center">
             Book Your Service
           </h2>
 
-          <form onSubmit={submit} className="space-y-4 sm:space-y-5">
+          <div className="space-y-5">
             <input
               type="text"
               name="name"
               placeholder="Your Name"
               value={inp.name}
               onChange={change}
-              className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:ring-2 focus:ring-purple-400 outline-none text-sm sm:text-base"
+              className="w-full border rounded-lg px-4 py-3 focus:ring-2 focus:ring-purple-400 outline-none"
               required
             />
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div className="grid grid-cols-2 gap-4">
               <input
                 type="date"
                 name="date"
                 value={inp.date}
                 onChange={change}
-                className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:ring-2 focus:ring-purple-400 outline-none text-sm sm:text-base"
+                className="border rounded-lg px-4 py-3 focus:ring-2 focus:ring-purple-400 outline-none"
                 required
               />
               <input
@@ -165,12 +185,12 @@ function BookService() {
                 name="time"
                 value={inp.time}
                 onChange={change}
-                className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:ring-2 focus:ring-purple-400 outline-none text-sm sm:text-base"
+                className="border rounded-lg px-4 py-3 focus:ring-2 focus:ring-purple-400 outline-none"
                 required
               />
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div className="grid grid-cols-2 gap-4">
               <input
                 type="number"
                 name="num"
@@ -178,7 +198,7 @@ function BookService() {
                 placeholder="Employees"
                 value={inp.num}
                 onChange={change}
-                className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:ring-2 focus:ring-purple-400 outline-none text-sm sm:text-base"
+                className="border rounded-lg px-4 py-3 focus:ring-2 focus:ring-purple-400 outline-none"
                 required
               />
               <input
@@ -188,20 +208,28 @@ function BookService() {
                 placeholder="Hours"
                 value={inp.hrs}
                 onChange={change}
-                className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:ring-2 focus:ring-purple-400 outline-none text-sm sm:text-base"
+                className="border rounded-lg px-4 py-3 focus:ring-2 focus:ring-purple-400 outline-none"
                 required
               />
             </div>
 
-            <button
-              type="submit"
-              className="w-full mt-4 bg-purple-600 text-white py-3 rounded-lg font-semibold text-base sm:text-lg shadow-md hover:bg-purple-700 transition"
-            >
-              Confirm Booking
-            </button>
-          </form>
-        </div>
+            {/* Total Price */}
+            {totalPrice > 0 && (
+              <div className="bg-purple-50 p-4 rounded-lg text-center font-semibold text-lg">
+                Total Amount: ₹{totalPrice}
+              </div>
+            )}
 
+            {/* Payment Button */}
+            <button
+              onClick={handlePayment}
+              disabled={loading}
+              className="w-full bg-purple-600 text-white py-3 rounded-lg font-semibold shadow-md hover:bg-purple-700 transition"
+            >
+              {loading ? "Processing..." : "Pay & Book Now"}
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   );
