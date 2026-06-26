@@ -25,6 +25,10 @@ import Adminhome from './pages/admin/Adminhome.jsx'
 import ManageService from './pages/admin/ManageService.jsx'
 import BookingMonitoring from './pages/admin/BookingMonitoring.jsx'
 import EditServices from './pages/provider/EditServices.jsx'
+import Payment from './pages/user/Payment.jsx'
+
+
+
 
 
 function App() {
@@ -47,7 +51,7 @@ function App() {
           <Route  path="/editbooking/:id" element={<EditBooking/>}/>
          <Route  path="/rateservice/:id" element={<RateService/>}/>
            <Route path="/serviceupdate/:id" element={<EditServices />} />
-         
+         <Route path="/payment" element={<Payment />} />
 
 
 

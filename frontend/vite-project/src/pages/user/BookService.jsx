@@ -60,58 +60,31 @@ function BookService() {
   };
 
   // 💳 Razorpay Payment Function
-  const handlePayment = async () => {
-    if (!service) return;
+ const handlePayment = () => {
+  if (!service) return;
 
-    setLoading(true);
+  if (
+    !inp.name ||
+    !inp.date ||
+    !inp.time ||
+    !inp.num ||
+    !inp.hrs
+  ) {
+    alert("Please fill all fields");
+    return;
+  }
 
-    try {
-      const totalAmount = service.price * inp.hrs;
+  const totalAmount = service.price * Number(inp.hrs);
 
-      const res = await fetch(
-        "http://localhost:5000/api/payment/create-order",
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ amount: totalAmount }),
-        }
-      );
-
-      const order = await res.json();
-
-      const options = {
-        key: "YOUR_KEY_ID",
-        amount: order.amount,
-        currency: "INR",
-        order_id: order.id,
-        name: "Service Connect",
-        description: "Service Booking Payment",
-
-        handler: async function (response) {
-          await Bookservices(serviceId, inp);
-          alert("Payment Successful ✅");
-          nav("/user/viewbook");
-        },
-
-        theme: {
-          color: "#7C3AED",
-        },
-      };
-
-      const rzp = new window.Razorpay(options);
-      rzp.open();
-
-    } catch (error) {
-      console.error(error);
-      alert("Payment failed");
-    }
-
-    setLoading(false);
-  };
-
-  const totalPrice = service && inp.hrs
-    ? service.price * inp.hrs
-    : 0;
+  nav("/payment", {
+    state: {
+      service,
+      serviceId,
+      bookingData: inp,
+      totalAmount,
+    },
+  });
+};
 
   return (
     <div className="min-h-screen px-4 sm:px-6 py-10 bg-gray-50">
