@@ -45,16 +45,20 @@ import Review from '../models/ReviewModel.js'
 
 // }
 export const Register = async (req, res) => {
+  console.log("Incoming data:", req.body);
+
   const { name, address, email, phone, password, business, usertype } = req.body;
 
   try {
     const existuser = await User.findOne({ email });
+
+    console.log("Existing user:", existuser);
+
     if (existuser) {
       return res.status(409).json({ message: "Email already exists" });
     }
 
     const hashedpassword = await bcrypt.hash(password, 10);
-
 
     const createuser = new User({
       name,
@@ -64,24 +68,62 @@ export const Register = async (req, res) => {
       password: hashedpassword,
       business,
       usertype,
-     
-      
     });
 
-    
+    console.log("Before save");
 
-    await createuser.save();
+    const savedUser = await createuser.save();
+
+    console.log("After save:", savedUser);
 
     return res.status(201).json({
-      message: "registered"
-      
+      message: "registered",
+      user: savedUser,
     });
 
   } catch (error) {
-    console.error(error);
-    return res.status(500).json({ message: "Registration failed" });
+    console.log("Register Error:", error);
+    return res.status(500).json({ message: error.message });
   }
 };
+// export const Register = async (req, res) => {
+//   const { name, address, email, phone, password, business, usertype } = req.body;
+
+//   try {
+//     const existuser = await User.findOne({ email });
+//     if (existuser) {
+//       return res.status(409).json({ message: "Email already exists" });
+//     }
+
+//     const hashedpassword = await bcrypt.hash(password, 10);
+
+
+//     const createuser = new User({
+//       name,
+//       address,
+//       email,
+//       phone,
+//       password: hashedpassword,
+//       business,
+//       usertype,
+     
+      
+//     });
+
+    
+
+//     await createuser.save();
+
+//     return res.status(201).json({
+//       message: "registered"
+      
+//     });
+
+//   } catch (error) {
+//     console.error(error);
+//     return res.status(500).json({ message: "Registration failed" });
+//   }
+// };
 
 
 export const Login=async(req,res)=>{
