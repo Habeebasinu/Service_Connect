@@ -328,17 +328,28 @@ export const serviceEdit=async(id,formdata)=>{
  }
 
 
- export const createOrder = async (amount) => {
-  try {
-    return await axios.post(
-      `${API_URL}/payment/create-order`,
-      { amount },
-      {
-        headers: GetAuthor(),
-      }
-    );
-  } catch (error) {
-    console.log("Create order error:", error);
-    throw error;
-  }
+//  export const createOrder = async (amount) => {
+//   try {
+//     return await axios.post(
+//       `${API_URL}/payment/create-order`,
+//       { amount },
+//       {
+//         headers: GetAuthor(),
+//       }
+//     );
+//   } catch (error) {
+//     console.log("Create order error:", error);
+//     throw error;
+//   }
+// };
+
+
+export const createOrder = async (amount) => {
+  return await axios.post(
+    `${API_URL}/payment/create-order`,
+    { amount },
+    {
+      headers: GetAuthor(),
+    }
+  );
 };
