@@ -18,7 +18,6 @@ function Payment() {
 
   const handlePayment = async () => {
     try {
-      // Create Razorpay Order
       const res = await createOrder(totalAmount);
 
       const order = res.data;
@@ -49,7 +48,7 @@ function Payment() {
             orderId: response.razorpay_order_id,
             signature: response.razorpay_signature,
 
-            paymentStatus: "Success",
+            paymentStatus: "paid",
 
             amount: totalAmount,
           };

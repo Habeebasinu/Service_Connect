@@ -241,72 +241,130 @@ export const Viewserviceby=async(req,res)=>{
 //     return res.status(500).json({ message: "booking failed" });
 //   }
 // };
+// export const ServiceBook = async (req, res) => {
+//   console.log("REQ.USER", req.user);
+//   console.log("REQ.PARAMS", req.params);
+//   console.log("REQ.BODY", req.body);
+
+//   const {
+//     name,
+//     date,
+//     time,
+//     num,
+//     hrs,
+//     paymentId,
+//     orderId,
+//     signature,
+//     paymentStatus,
+//     amount,
+//   } = req.body;
+
+//   const service_id = req.params.id;
+//   const userId = req.user.id;
+
+//   try {
+//     const Service = await Provider.findById(service_id);
+
+//     if (!Service) {
+//       return res.status(404).json({
+//         message: "Service not found",
+//       });
+//     }
+
+//     const newBooking = new Customer({
+//       name,
+//       date,
+//       time,
+//       num,
+//       hrs,
+
+//       service_name: Service.service,
+//       providerId: Service.providerId,
+//       service_id,
+//       userId,
+
+//       status: "pending",
+
+//       paymentId,
+//       orderId,
+//       signature,
+//       paymentStatus,
+//       amount,
+//     });
+
+//     await newBooking.save();
+
+//     return res.status(201).json({
+//       message: "Booking Successful",
+//       booking: newBooking,
+//     });
+
+//   } catch (error) {
+//     console.error(error);
+//     return res.status(500).json({
+//       message: "Booking failed",
+//     });
+//   }
+// };
 export const ServiceBook = async (req, res) => {
-  console.log("REQ.USER", req.user);
-  console.log("REQ.PARAMS", req.params);
-  console.log("REQ.BODY", req.body);
-
-  const {
-    name,
-    date,
-    time,
-    num,
-    hrs,
-    paymentId,
-    orderId,
-    signature,
-    paymentStatus,
-    amount,
-  } = req.body;
-
-  const service_id = req.params.id;
-  const userId = req.user.id;
-
   try {
-    const Service = await Provider.findById(service_id);
+    const {
+      name,
+      date,
+      time,
+      num,
+      hrs,
+      paymentId,
+      orderId,
+      paymentStatus,
+      amount,
+    } = req.body;
 
-    if (!Service) {
+    const service_id = req.params.id;
+    const userId = req.user.id;
+
+    const service = await Provider.findById(service_id);
+
+    if (!service) {
       return res.status(404).json({
         message: "Service not found",
       });
     }
 
-    const newBooking = new Customer({
+    const booking = new Customer({
       name,
       date,
       time,
       num,
       hrs,
 
-      service_name: Service.service,
-      providerId: Service.providerId,
+      service_name: service.service,
       service_id,
+      providerId: service.providerId,
       userId,
 
       status: "pending",
 
       paymentId,
       orderId,
-      signature,
       paymentStatus,
       amount,
     });
 
-    await newBooking.save();
+    await booking.save();
 
-    return res.status(201).json({
-      message: "Booking Successful",
-      booking: newBooking,
+    res.status(201).json({
+      success: true,
+      booking,
     });
 
-  } catch (error) {
-    console.error(error);
-    return res.status(500).json({
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({
       message: "Booking failed",
     });
   }
 };
-
 export const findbook = async (req, res) => {
   try {
     const id = req.params.id; 
