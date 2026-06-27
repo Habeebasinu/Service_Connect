@@ -307,6 +307,7 @@ export const Viewserviceby=async(req,res)=>{
 //   }
 // };
 export const ServiceBook = async (req, res) => {
+    console.log("BODY:", req.body);
   try {
     const {
       name,
