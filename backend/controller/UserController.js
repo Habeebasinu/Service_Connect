@@ -45,14 +45,12 @@ import Review from '../models/ReviewModel.js'
 
 // }
 export const Register = async (req, res) => {
-  console.log("Incoming data:", req.body);
-
   const { name, address, email, phone, password, business, usertype } = req.body;
 
   try {
-    const existuser = await User.findOne({ email });
+    console.log("Received:", req.body);
 
-    console.log("Existing user:", existuser);
+    const existuser = await User.findOne({ email });
 
     if (existuser) {
       return res.status(409).json({ message: "Email already exists" });
@@ -72,18 +70,19 @@ export const Register = async (req, res) => {
 
     console.log("Before save");
 
-    const savedUser = await createuser.save();
+    await createuser.save();
 
-    console.log("After save:", savedUser);
+    console.log("After save:", createuser);
 
     return res.status(201).json({
-      message: "registered",
-      user: savedUser,
+      message: "Registered successfully",
+      user: createuser,
     });
-
   } catch (error) {
-    console.log("Register Error:", error);
-    return res.status(500).json({ message: error.message });
+    console.log(error);
+    return res.status(500).json({
+      message: error.message,
+    });
   }
 };
 // export const Register = async (req, res) => {
