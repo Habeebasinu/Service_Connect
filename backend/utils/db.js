@@ -1,5 +1,8 @@
-import mongoose from 'mongoose'
-import 'dotenv/config'
+// import mongoose from 'mongoose'
+// import 'dotenv/config'
+import mongoose from "mongoose";
+import dotenv from "dotenv";
+
 
 const MONGO_URL=process.env.URL
 
