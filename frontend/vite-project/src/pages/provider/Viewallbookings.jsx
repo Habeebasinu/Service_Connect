@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { getProviderBookings, confirmBooking, completeBooking } from "../../api/api.jsx";
+
 
 function ViewAllBookings() {
   const [bookings, setBookings] = useState([]);
   const providerId = localStorage.getItem("id");
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -101,6 +104,20 @@ function ViewAllBookings() {
                 >
                   Done
                 </button>
+                <button
+  onClick={() =>
+    navigate("/provider/chat", {
+      state: {
+        bookingId: item._id,
+        providerId: providerId,
+        customerId: item.userId._id,
+      },
+    })
+  }
+  className="flex-1 py-2 rounded-lg bg-green-600 text-white hover:bg-green-700 transition font-semibold text-sm"
+>
+  Chat
+</button>
               </div>
             </div>
           ))
