@@ -114,6 +114,9 @@ function Viewbookings() {
               </div>
 
               <div className="flex flex-col sm:flex-row gap-2 mt-5">
+                <button className="bg-green-600 text-white p-2 rounded">
+  TEST CHAT
+</button>
                 <motion.button
                   whileTap={{ scale: 0.95 }}
                   onClick={() => nav(`/editbooking/${item._id}`)}
