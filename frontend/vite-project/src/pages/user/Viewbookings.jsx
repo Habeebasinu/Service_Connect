@@ -137,6 +137,20 @@ function Viewbookings() {
                 >
                   Rate
                 </motion.button>
+                <motion.button
+  whileTap={{ scale: 0.95 }}
+  onClick={() =>
+    nav("/chat", {
+      state: {
+        bookingId: item._id,
+        providerId: item.providerId,
+      },
+    })
+  }
+  className="flex-1 bg-green-600 text-white py-2 rounded-md text-sm font-semibold hover:bg-green-700 transition"
+>
+  Chat
+</motion.button>
               </div>
             </motion.div>
           ))}

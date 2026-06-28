@@ -9,6 +9,7 @@ import ProviderRouter from "./router/ProviderRouter.js";
 import AdminRouter from "./router/AdminRouter.js";
 import PaymentRouter from './router/PaymentRouter.js'
 import { initSocket } from "./config/Socket.js";
+import ChatRouter from "./router/ChatRouter.js"
 
 dotenv.config();
 
@@ -92,6 +93,7 @@ app.use("/user", userRouter);
 app.use("/provider", ProviderRouter);
 app.use("/admin", AdminRouter);
 app.use('/payment',PaymentRouter)
+app.use("/chat",ChatRouter);
 
 /* =========================
    SOCKET INIT
