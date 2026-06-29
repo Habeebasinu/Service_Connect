@@ -8,9 +8,11 @@ export const chatAI = async (req, res) => {
     const { message } = req.body;
 
     // Get all approved services
-    const services = await Provider.find({
-      approvalStatus: "accept",
-    });
+  const services = await Provider.find({
+  approvalStatus: "accept",
+});
+
+console.log("Services found:", services.length);
 
     // Convert services to text for Gemini
     const serviceList = services
@@ -28,37 +30,56 @@ Description: ${service.desc}
     const model = genAI.getGenerativeModel({
       model: "gemini-2.5-flash",
     });
+const prompt = `
+You are the Service Connect AI Assistant.
 
-    const prompt = `
-You are the AI Assistant of Service Connect.
+IMPORTANT:
+Every reply MUST start with:
+SERVICE CONNECT BOT
 
-Service Connect is a home service booking platform.
-
-Users can:
-- Search services
-- Book services
-- Pay online
-- Rate providers
-
-Providers can:
-- Register
-- Add services
-- Manage bookings
-
-The following services are available in the system:
+Available services:
 
 ${serviceList}
 
-Instructions:
-- Answer ONLY questions related to Service Connect.
-- Recommend services from the available list.
-- Mention provider name and price if asked.
-- If someone asks unrelated questions (movies, sports, coding, politics, etc.), reply:
-"Sorry, I can only answer questions related to Service Connect."
+Rules:
+- Answer only about Service Connect.
+- Use the available services above.
+- If the user asks unrelated questions, reply:
+"Sorry, I can only answer Service Connect questions."
 
 User Question:
 ${message}
 `;
+//     const prompt = `
+// You are the AI Assistant of Service Connect.
+
+// Service Connect is a home service booking platform.
+
+// Users can:
+// - Search services
+// - Book services
+// - Pay online
+// - Rate providers
+
+// Providers can:
+// - Register
+// - Add services
+// - Manage bookings
+
+// The following services are available in the system:
+
+// ${serviceList}
+
+// Instructions:
+// - Answer ONLY questions related to Service Connect.
+// - Recommend services from the available list.
+// - Mention provider name and price if asked.
+// - If someone asks unrelated questions (movies, sports, coding, politics, etc.), reply:
+// "Sorry, I can only answer questions related to Service Connect."
+
+// User Question:
+// ${message}
+// `;
 
     const result = await model.generateContent(prompt);
 
