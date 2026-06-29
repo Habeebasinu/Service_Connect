@@ -10,7 +10,7 @@ import AdminRouter from "./router/AdminRouter.js";
 import PaymentRouter from './router/PaymentRouter.js'
 import { initSocket } from "./config/Socket.js";
 // import ChatRouter from "./router/ChatRouter.js"
-import AiRouter from "./router/AiRouter.js";
+import AiRouter from "./router/TempRouter.js";
 
 
 
