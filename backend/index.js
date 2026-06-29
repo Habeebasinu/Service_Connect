@@ -10,7 +10,7 @@ import AdminRouter from "./router/AdminRouter.js";
 import PaymentRouter from './router/PaymentRouter.js'
 import { initSocket } from "./config/Socket.js";
 // import ChatRouter from "./router/ChatRouter.js"
-import AiRoute from "./router/AiRouter.js";
+import AiRouter from "./router/AiRouter.js";
 
 
 
@@ -97,7 +97,7 @@ app.use("/provider", ProviderRouter);
 app.use("/admin", AdminRouter);
 app.use('/payment',PaymentRouter)
 // app.use("/chat",ChatRouter);
-app.use("/ai", AiRoute);
+app.use("/ai", AiRouter);
 
 /* =========================
    SOCKET INIT
