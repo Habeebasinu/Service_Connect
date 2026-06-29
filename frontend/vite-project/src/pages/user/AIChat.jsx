@@ -28,9 +28,12 @@ function AIChat() {
     setMessages((prev) => [...prev, userMessage]);
 
     try {
-      const res = await axios.post("http://localhost:5000/ai/chat", {
-        message: text,
-      });
+      const res = await axios.post(
+  "https://service-connect-1-ppdo.onrender.com/ai/chat",
+  {
+    message: text,
+  }
+);
 
       setMessages((prev) => [
         ...prev,
@@ -64,7 +67,7 @@ function AIChat() {
 
       {/* Chat Window */}
       {open && (
-        <div className="fixed bottom-24 right-6 w-96 h-[550px] bg-white rounded-xl shadow-2xl flex flex-col z-50">
+        <div className="fixed bottom-24 right-6 bg-white rounded-xl shadow-2xl flex flex-col z-50">
 
           {/* Header */}
           <div className="bg-purple-600 text-white p-4 rounded-t-xl flex justify-between">
