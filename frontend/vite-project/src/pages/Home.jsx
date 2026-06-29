@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import ServicesSection from "./ServicesSection";
 import FeaturedServices from "./FeaturedServices";
 import Work from "./Work";
+import AIChat from "./user/AIChat";
 
 const Home = () => {
   return (
@@ -60,6 +61,7 @@ const Home = () => {
       <ServicesSection />
       <FeaturedServices />
       <Work />
+      <AIChat />
     </>
   );
 };
