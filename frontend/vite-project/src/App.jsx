@@ -26,8 +26,8 @@ import ManageService from './pages/admin/ManageService.jsx'
 import BookingMonitoring from './pages/admin/BookingMonitoring.jsx'
 import EditServices from './pages/provider/EditServices.jsx'
 import Payment from './pages/user/Payment.jsx'
-import Chat from "./pages/user/Chat.jsx";
-import ProviderChat from './pages/provider/ProviderChat.jsx'
+// import Chat from "./pages/user/Chat.jsx";
+// import ProviderChat from './pages/provider/ProviderChat.jsx'
 import AIChat from './pages/user/AIChat.jsx'
 
 
@@ -54,8 +54,8 @@ function App() {
          <Route  path="/rateservice/:id" element={<RateService/>}/>
            <Route path="/serviceupdate/:id" element={<EditServices />} />
          <Route path="/payment" element={<Payment />} />
-         <Route path="/chat" element={<Chat />} />
-         <Route path="/provider/chat" element={<ProviderChat />} />
+         {/* <Route path="/chat" element={<Chat />} />
+         <Route path="/provider/chat" element={<ProviderChat />} /> */}
          <Route path="/aichat" element={<AIChat />} />
 
 
