@@ -7,7 +7,7 @@ import Userbooking from "../pages/user/Userbooking.jsx";
 import { Routes,Route } from "react-router-dom";
 import  Profile from '../components/auth/Profile.jsx'
 import Viewbookings from "../pages/user/Viewbookings.jsx";
-import AIChat from "../pages/user/AIChat"
+import AIChat from "../pages/user/AIChat.jsx"
 
 function UserLayout() {
   return (
