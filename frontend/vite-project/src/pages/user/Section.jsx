@@ -9,7 +9,7 @@ function Section() {
     console.log("Section Rendered");
     const Click=async(Category)=>{
         const res=await viewallservices()
-         const filt=res.filter((item)=>item.service === Category)
+         const filt=res.data.filter((item)=>item.service === Category)
          setServices(filt)
     }
   return (
