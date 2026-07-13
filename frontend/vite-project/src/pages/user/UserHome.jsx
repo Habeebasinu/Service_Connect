@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { viewallservices } from "../../api/api.jsx";
 import { motion } from "framer-motion";
-
+import Section from "./Section.jsx";
 function UserHome() {
   const [services, setServices] = useState([]);
 
@@ -23,6 +23,7 @@ function UserHome() {
 
   return (
     <div className="w-full min-h-screen px-4 sm:px-6 md:px-10 py-6 sm:py-10 bg-gray-100">
+      <Section/>
       
       <h2 className="text-2xl sm:text-3xl font-extrabold text-purple-700 mb-8 sm:mb-10 text-center tracking-wide">
         Available Services

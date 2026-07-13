@@ -8,7 +8,6 @@ import { Routes,Route } from "react-router-dom";
 import  Profile from '../components/auth/Profile.jsx'
 import Viewbookings from "../pages/user/Viewbookings.jsx";
 import AIChat from "../pages/user/AIChat.jsx"
-import Section from "../pages/user/Section.jsx";
 
 function UserLayout() {
   return (
@@ -23,7 +22,7 @@ function UserLayout() {
 
         
         <main className="flex-1  bg-gray-50 overflow-y-auto">
-           <Section/>
+        
            <Routes>
                 <Route index element={<UserHome />} />
                 <Route path="/home" element={<UserHome />} />
