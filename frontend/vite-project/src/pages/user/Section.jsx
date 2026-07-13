@@ -13,12 +13,17 @@ function Section() {
     //      setServices(filt)
     // }
     const Click = async (Category) => {
-  const res = await viewallservices();
+  try {
+    const res = await viewallservices();
 
-  console.log(res.data);
-  console.log(Array.isArray(res.data));
+    const filt = res.data.filter(
+      (item) => item.service.toLowerCase() === Category.toLowerCase()
+    );
 
-  // Don't filter yet
+    setServices(filt);
+  } catch (err) {
+    console.log(err);
+  }
 };
   return (
     <div className="bg-white p-6 rounded-xl shadow-md m-6">
