@@ -25,18 +25,20 @@ function Section() {
 //     console.log(err);
 //   }
 // };
-const Click = async (Category) => {
-  const res = await viewallservices();
-
-  const filt = res.data.filter(
-    (item) => item.service.toLowerCase().trim() === Category.toLowerCase().trim()
+const filt = res.data.filter((item) => {
+  console.log(
+    "DB:",
+    item.service,
+    "| Category:",
+    Category,
+    "| Match:",
+    item.service.toLowerCase().trim() === Category.toLowerCase().trim()
   );
 
-  console.log("Category:", Category);
-  console.log("Filtered:", filt);
+  return item.service.toLowerCase().trim() === Category.toLowerCase().trim();
+});
 
-  setServices(filt);
-};
+console.log(filt);
   return (
     <div className="bg-white p-6 rounded-xl shadow-md m-6">
 
