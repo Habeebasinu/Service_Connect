@@ -12,18 +12,30 @@ function Section() {
     //      const filt=res.data.filter((item)=>item.service === Category)
     //      setServices(filt)
     // }
-    const Click = async (Category) => {
-  try {
-    const res = await viewallservices();
+//     const Click = async (Category) => {
+//   try {
+//     const res = await viewallservices();
 
-    const filt = res.data.filter(
-      (item) => item.service.toLowerCase() === Category.toLowerCase()
-    );
+//     const filt = res.data.filter(
+//       (item) => item.service.toLowerCase() === Category.toLowerCase()
+//     );
 
-    setServices(filt);
-  } catch (err) {
-    console.log(err);
-  }
+//     setServices(filt);
+//   } catch (err) {
+//     console.log(err);
+//   }
+// };
+const Click = async (Category) => {
+  const res = await viewallservices();
+
+  const filt = res.data.filter(
+    (item) => item.service.toLowerCase().trim() === Category.toLowerCase().trim()
+  );
+
+  console.log("Category:", Category);
+  console.log("Filtered:", filt);
+
+  setServices(filt);
 };
   return (
     <div className="bg-white p-6 rounded-xl shadow-md m-6">
