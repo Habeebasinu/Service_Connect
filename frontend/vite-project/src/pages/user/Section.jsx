@@ -3,6 +3,7 @@ import { TbGardenCartFilled } from "react-icons/tb";
 import { FaGasPump } from "react-icons/fa";
 
 function Section() {
+    console.log("Section Rendered");
   return (
     <div className="bg-white p-6 rounded-xl shadow-md m-6">
 
