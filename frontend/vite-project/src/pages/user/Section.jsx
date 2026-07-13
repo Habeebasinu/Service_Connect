@@ -7,11 +7,19 @@ import { viewallservices } from "../../api/api";
 function Section() {
     const [services,setServices]=useState([])
     console.log("Section Rendered");
-    const Click=async(Category)=>{
-        const res=await viewallservices()
-         const filt=res.data.filter((item)=>item.service === Category)
-         setServices(filt)
-    }
+    // const Click=async(Category)=>{
+    //     const res=await viewallservices()
+    //      const filt=res.data.filter((item)=>item.service === Category)
+    //      setServices(filt)
+    // }
+    const Click = async (Category) => {
+  const res = await viewallservices();
+
+  console.log(res.data);
+  console.log(Array.isArray(res.data));
+
+  // Don't filter yet
+};
   return (
     <div className="bg-white p-6 rounded-xl shadow-md m-6">
 
