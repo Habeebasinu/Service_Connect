@@ -38,8 +38,9 @@ const filt = res.data.filter((item) => {
   );
 
   return item.service.toLowerCase().trim() === Category.toLowerCase().trim();
-});
 
+});
+setServices(filt)
 console.log(filt);}
   return (
     <div className="bg-white p-6 rounded-xl shadow-md m-6">
