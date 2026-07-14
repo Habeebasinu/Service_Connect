@@ -7,41 +7,45 @@ import { viewallservices } from "../../api/api";
 function Section() {
     const [services,setServices]=useState([])
     console.log("Section Rendered");
-    // const Click=async(Category)=>{
-    //     const res=await viewallservices()
-    //      const filt=res.data.filter((item)=>item.service === Category)
-    //      setServices(filt)
-    // }
-//     const Click = async (Category) => {
-//   try {
-//     const res = await viewallservices();
 
-//     const filt = res.data.filter(
-//       (item) => item.service.toLowerCase() === Category.toLowerCase()
-//     );
+// const Click=async(Category)=>{
+// const res=await viewallservices()
+// const filt = res.data.filter((item) => {
+//   console.log(
+//     "DB:",
+//     item.service,
+//     "| Category:",
+//     Category,
+//     "| Match:",
+//     item.service.toLowerCase().trim() === Category.toLowerCase().trim()
+//   );
 
-//     setServices(filt);
-//   } catch (err) {
-//     console.log(err);
-//   }
-// };
-const Click=async(Category)=>{
-const res=await viewallservices()
-const filt = res.data.filter((item) => {
-  console.log(
-    "DB:",
-    item.service,
-    "| Category:",
-    Category,
-    "| Match:",
-    item.service.toLowerCase().trim() === Category.toLowerCase().trim()
-  );
+//   return item.service.toLowerCase().trim() === Category.toLowerCase().trim();
 
-  return item.service.toLowerCase().trim() === Category.toLowerCase().trim();
+// });
+// setServices(filt)
+// console.log(filt);}
+const Click = async (category) => {
+  try {
+    const res = await viewallservices();
 
-});
-setServices(filt)
-console.log(filt);}
+    console.log("Category Clicked:", category);
+
+    const filtered = res.data.filter((item) => {
+      console.log(item.service);
+
+      return (
+        String(item.service).trim().toLowerCase() ===
+        String(category).trim().toLowerCase()
+      );
+    });
+
+    console.log("Filtered Result:", filtered);
+    setServices(filtered);
+  } catch (err) {
+    console.log(err);
+  }
+};console.log("Services State:", services);
   return (
     <div className="bg-white p-6 rounded-xl shadow-md m-6">
 
