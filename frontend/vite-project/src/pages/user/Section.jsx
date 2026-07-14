@@ -40,7 +40,7 @@ const filt = res.data.filter((item) => {
   return item.service.toLowerCase().trim() === Category.toLowerCase().trim();
 });
 
-console.log(filt);
+console.log(filt);}
   return (
     <div className="bg-white p-6 rounded-xl shadow-md m-6">
 
@@ -91,5 +91,5 @@ console.log(filt);
     </div>
   );
 }
-}
+
 export default Section;
