@@ -3,7 +3,7 @@ import { MdOutlinePets } from "react-icons/md";
 import { TbGardenCartFilled } from "react-icons/tb";
 import { FaGasPump } from "react-icons/fa";
 import { viewallservices } from "../../api/api";
-
+import { IoFitness } from "react-icons/io5";
 function Section() {
     const [services,setServices]=useState([])
     console.log("Section Rendered");
@@ -73,7 +73,13 @@ const Click = async (category) => {
           <div className="bg-yellow-100 p-5 rounded-full">
             <FaGasPump className="text-5xl text-yellow-600"  onClick={() => Click("plumbing")}/>
           </div>
-          <p className="mt-3 font-semibold">Fuel Delivery</p>
+          <p className="mt-3 font-semibold">plumbing</p>
+        </div>
+          <div className="flex flex-col items-center">
+          <div className="bg-yellow-100 p-5 rounded-full">
+            < IoFitness className="text-5xl text-yellow-600"  onClick={() => Click("fitness")}/>
+          </div>
+          <p className="mt-3 font-semibold">Fitness</p>
         </div>
 
       </div>
