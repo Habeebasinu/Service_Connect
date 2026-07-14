@@ -25,6 +25,8 @@ function Section() {
 //     console.log(err);
 //   }
 // };
+const Click=async(Category)=>{
+const res=await viewallservices()
 const filt = res.data.filter((item) => {
   console.log(
     "DB:",
