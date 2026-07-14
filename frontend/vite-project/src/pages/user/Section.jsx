@@ -91,5 +91,5 @@ console.log(filt);
     </div>
   );
 }
-
+}
 export default Section;
