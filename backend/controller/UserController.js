@@ -182,16 +182,28 @@ export const profileView = async (req, res) => {
   }
 };
 
-export const viewallservices=async(req,res)=>{
-    try{
-        const response=await Provider.find()
-        console.log(response)
-        return res.status(200).json(response)
-    }catch (error) {
-    console.error(error);
+// export const viewallservices=async(req,res)=>{
+//     try{
+//         const response=await Provider.find()
+//         console.log(response)
+//         return res.status(200).json(response)
+//     }catch (error) {
+//     console.error(error);
+//     return res.status(500).json({ message: "services not available" });
+//   }
+// }
+
+export const viewallservices = async (req, res) => {
+  try {
+    const response = await Provider.find({
+      approvalStatus: "accept",
+    });
+
+    return res.status(200).json(response);
+  } catch (error) {
     return res.status(500).json({ message: "services not available" });
   }
-}
+};
 
 export const Viewserviceby=async(req,res)=>{
     const id=req.params.id

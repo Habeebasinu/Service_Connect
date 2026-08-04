@@ -39,7 +39,7 @@ date:{
 approvalStatus: {
   type: String,
   enum: ['pending', 'accept', 'reject'],
-  default:"pending"
+  default:"accept"
   
 },img:{
   type:String
